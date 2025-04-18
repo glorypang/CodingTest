@@ -1,20 +1,19 @@
-class Solution {
-    boolean solution(String s) {
-        boolean answer = true;
-        int leftCnt = 0; // 왼쪽 괄호의 수
-        int rightCnt = 0; // 오른쪽 괄호의 수
-        
-        for(int i = 0 ; i < s.length(); i++){
-            char c = s.charAt(i);
-            if(c == '(')
-                leftCnt++;
-            else
-                rightCnt++;
-            if(rightCnt > leftCnt) return false;
-            
-        }
-        if(leftCnt != rightCnt) return false;
+import java.util.*;
 
-        return answer;
+class Solution {
+    boolean solution(String str) {
+        Stack<Character> s = new Stack<>();
+        for(char c: str.toCharArray()){
+            if(s.isEmpty()) s.push(c);
+            else{
+                if(c == ')'){
+                    if(s.peek() == '(') s.pop(); 
+                }
+                else s.push(c);
+            }
+        }
+        if(s.isEmpty()) return true;
+        else return false;
+
     }
 }
