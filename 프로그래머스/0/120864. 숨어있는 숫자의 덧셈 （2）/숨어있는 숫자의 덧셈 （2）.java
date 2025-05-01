@@ -1,19 +1,11 @@
 class Solution {
     public int solution(String my_string) {
         int answer = 0;
-        StringBuilder sb = new StringBuilder();
-        for(char c : my_string.toCharArray()){
-            if(Character.isDigit(c)){
-                sb.append(c);
-            }
-            else{
-                if(sb.length() >=1)
-                    answer += Integer.parseInt(sb.toString());
-                sb.setLength(0);
-            }
+        String[] str = my_string.split("[a-zA-Z]");
+        for(String s : str){
+            if(s.length() >=1)
+                answer += Integer.parseInt(s);
         }
-        if(sb.length() >=1)
-            answer += Integer.parseInt(sb.toString());
         return answer;
     }
 }
