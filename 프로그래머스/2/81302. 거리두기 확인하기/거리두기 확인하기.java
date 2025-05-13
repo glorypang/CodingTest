@@ -11,6 +11,7 @@ class Solution {
     public int[] solution(String[][] places) {
         int[] answer = new int[places.length];
         Arrays.fill(answer, 1);
+    // System.out.println(n+", "+m);
 
         for(int i =0  ; i< places.length; i++){
             n = places[i].length;
@@ -28,6 +29,9 @@ class Solution {
                     }
                 }
             }
+            // for(int[] arr : p){
+            //      System.out.println(arr[0]+", "+arr[1]);
+            // }
             
             for(int j = 0; j < p.size(); j++){
                 visited= new boolean[n][m];
@@ -41,7 +45,22 @@ class Solution {
                     answer[i] = 0;
                     break;
                 }
+                // bfs(p.get(i));
             }
+            // for(int a = 0 ; a <n ;a++){
+            //         for(int b = 0;b <m ; b++){
+            //             System.out.print(distance[a][b]);
+            //         }
+            //         System.out.println();
+            //     }
+            // System.out.println();
+            // for(int j = 0 ; j <n ;j++){
+            //     for(int k = 0; k <m ; k++){
+            //         System.out.print(map[j][k]);
+            //     }
+            //     System.out.println();
+            // }
+            // System.out.println();
 
         }    
         return answer;
