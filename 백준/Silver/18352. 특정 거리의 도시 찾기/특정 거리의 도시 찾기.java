@@ -6,7 +6,7 @@ import java.nio.Buffer;
 import java.util.*;
 
 public class Main {
-    static List<List<int[]>> graph;
+    static List<List<Integer>> graph;
     static int[] dist;
     static final int INF = Integer.MAX_VALUE;
 
@@ -19,6 +19,8 @@ public class Main {
         int K = Integer.parseInt(st.nextToken());
         int X = Integer.parseInt(st.nextToken());
         dist = new int[N+1];
+        Arrays.fill(dist, -1);
+
         graph = new ArrayList<>();
         for(int i = 0; i <= N ;i++){
             graph.add(new ArrayList<>());
@@ -28,52 +30,30 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             int s = Integer.parseInt(st.nextToken());
             int e = Integer.parseInt(st.nextToken());
-            int w = 1;
-
-            graph.get(s).add(new int[]{e, w});
+            graph.get(s).add(e);
         }
-        dijkstra(X);
-
-        List<Integer> list = new ArrayList<>();
-        for(int i = 1; i <= N ; i++){
-            if(dist[i] == K){
-                list.add(i);
+        bfs(X);
+        boolean found = false;
+        for (int i = 1; i <= N; i++) {
+            if (dist[i] == K) {
+                System.out.println(i);
+                found = true;
             }
         }
-        Collections.sort(list);
 
-        if(list.size() == 0){
-            System.out.println(-1);
-        }
-        else {
-            for (int n : list){
-                System.out.println(n);
-            }
-        }
+        if (!found) System.out.println(-1);
     }
-    public static void dijkstra(int start) {
-        Arrays.fill(dist, INF);
-        PriorityQueue<int[]> pq = new PriorityQueue<>((n1, n2) -> n1[1] - n2[1]);
-        pq.offer(new int[]{start,0});
+    public static void bfs(int start) {
+        Queue<Integer> q = new LinkedList<>();
+        q.add(start);
         dist[start] = 0;
 
-        while(!pq.isEmpty()){
-            int[] cur = pq.poll();
-            int curNode = cur[0];
-            int curDist = cur[1];
-
-            if(curDist > dist[curNode]){
-                continue;
-            }
-
-            for(int[] next : graph.get(curNode)){
-                int nextNode = next[0];
-                int weight = next[1];
-
-                int newDist = curDist + weight;
-                if(newDist < dist[nextNode]){
-                    dist[nextNode] = newDist;
-                    pq.offer(new int[]{nextNode,newDist});
+        while(!q.isEmpty()){
+            int cur = q.poll();
+            for(int next: graph.get(cur)){
+                if(dist[next] == -1){
+                    dist[next] = dist[cur] +1;
+                    q.add(next);
                 }
             }
         }
