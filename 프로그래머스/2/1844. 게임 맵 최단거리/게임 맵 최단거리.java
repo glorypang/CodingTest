@@ -1,48 +1,48 @@
 import java.util.*;
 class Solution {
-    static boolean[][] visited;
-    static int n, m;
-    static int[] dx = {-1,1,0,0};
-    static int[] dy = {0,0,-1,1};
-    static int[][] distance;
     static int[][] map;
-    int dis = 0;
+    static boolean[][] visited;
+    static int N, M;
+    static int[] dx ={-1, 1, 0, 0};
+    static int[] dy ={0, 0, -1, 1};
+    static int[][] distance;
     public int solution(int[][] maps) {
-        n = maps.length;
-        m = maps[0].length;
+        N = maps.length;
+        M = maps[0].length;
         map = maps;
-        visited = new boolean[n][m];
-        distance = new int[n][m];
-        distance[0][0] = 1;
-        return bfs(0,0) == 0 ? -1 : bfs(0,0);          
-
+        visited = new boolean[N][M];
+        distance = new int[N][M];
+        
+        if(map[0][0] == 0 || map[N-1][M-1] == 0) return -1;
+        return bfs(0,0);
     }
-    public int bfs(int x, int y){
-        visited[x][y] = true;
+    public static int bfs(int x, int y){
         Queue<int[]> q = new LinkedList<>();
-        q.add(new int[]{x,y});
+        q.offer(new int[]{x,y});
+        visited[x][y] = true;
         
         while(!q.isEmpty()){
             int[] cur = q.poll();
             int cx = cur[0];
             int cy = cur[1];
-            dis++;
-
-            for(int i = 0; i< 4 ; i++){
+            
+            if(cx == N-1 && cy == M-1){
+                return distance[cx][cy]+1;
+            }
+            
+            for(int i = 0 ; i< 4 ; i++){
                 int nx = cx + dx[i];
-                int ny = cy + dy[i];
+                int ny= cy + dy[i];
                 
-                if(nx >=0 && nx <n && ny >=0 && ny < m){
+                if(nx >= 0 && ny >= 0 && nx < N && ny < M){
                     if(!visited[nx][ny] && map[nx][ny] == 1){
+                        q.offer(new int[]{nx, ny});
                         visited[nx][ny] = true;
-                        q.add(new int[]{nx, ny});
-                        distance[nx][ny] = distance[cx][cy]+1;
-                        // System.out.println("현재 좌표 x: " + nx + ", y: " + ny + ", " + distance[nx][ny]);
+                        distance[nx][ny] = distance[cx][cy] + 1;
                     }
-
                 }
             }
         }
-        return distance[n-1][m-1];
+        return -1;
     }
 }
