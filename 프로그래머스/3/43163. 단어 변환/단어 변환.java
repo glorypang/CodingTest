@@ -2,25 +2,25 @@ import java.util.*;
 
 class Solution {
     public int solution(String begin, String target, String[] words) {
+        int answer = 0;
         boolean[] visit = new boolean[words.length];
         Queue<String> q = new LinkedList<>();
         q.offer(begin);
-        int depth = 0;
+        int depth =0 ;
         
         while(!q.isEmpty()){
             int size = q.size();
             
-            for(int i =0 ; i < size; i++){
-                String str = q.poll();
+            while(size-- > 0 ){
+                String cur = q.poll();
                 
-                if(str.equals(target)){
+                if(cur.equals(target)){
                     return depth;
                 }
-                
-                for(int j = 0 ; j <words.length; j++){
-                    if(!visit[j] && isOneDifferent(str, words[j])){
-                        visit[j] = true;
-                        q.offer(words[j]);
+                for(int i = 0; i < words.length; i++){
+                    if(!visit[i] && isOne(cur, words[i])){
+                        visit[i] = true;
+                        q.offer(words[i]);
                     }
                 }
             }
@@ -28,13 +28,13 @@ class Solution {
         }
         return 0;
     }
-    public boolean isOneDifferent(String s1, String s2){
-        int cnt = 0;
-        for(int i = 0 ; i <s1.length(); i++){
+    public boolean isOne(String s1, String s2){
+        int cnt = 0 ;
+        for(int i = 0 ; i < s1.length(); i++){
             if(s1.charAt(i) != s2.charAt(i)){
                 cnt++;
             }
-            if(cnt >= 2){
+            if(cnt>1){
                 return false;
             }
         }
