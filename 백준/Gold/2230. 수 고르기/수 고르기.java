@@ -20,7 +20,7 @@ public class Main {
         int end = 0;
         int min = Integer.MAX_VALUE;
 
-        while (start < n && end < n) {
+        while (start <= end && end < n) {
             int diff = arr[end] - arr[start];
 
             if (diff < m) {
