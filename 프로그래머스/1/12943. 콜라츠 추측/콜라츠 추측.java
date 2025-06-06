@@ -1,17 +1,18 @@
 class Solution {
-    public int solution(int num) {
+    public int solution(int num1) {
         int answer = 0;
-        long n = num;
-        while(n != 1 && answer < 500){
-            if(n%2 == 0)
-                n = n/2;
-            else 
-                n = n*3 +1;
+        long num = Long.valueOf(num1);
+        while(answer < 500){
+            if(num == 1){
+                return answer;    
+            }
+            if(num %2== 0)
+                num /= 2;
+            else{
+                num = num*3 +1;
+            }
             answer++;
-            System.out.println(n);
-
         }
-        System.out.println(n);
-        return n == 1 ? answer : -1;
+        return answer >= 500 ? -1 : answer;
     }
 }
