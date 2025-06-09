@@ -1,16 +1,23 @@
 class Solution {
     public String solution(String s) {
+        String answer = "";
         StringBuilder sb = new StringBuilder();
-        int i = 0;
         
+        int idx = 0;
         for(char c : s.toCharArray()){
-            if(c == ' '){
-                i = -1;
+            if(Character.isLetter(c)){
+                if(idx%2 == 0){
+                    c= Character.toUpperCase(c);
+                }
+                else{
+                    c= Character.toLowerCase(c);
+                }
+                idx++;
             }
-            if(i%2 == 0 ) sb.append(Character.toUpperCase(c));
-            else sb.append(Character.toLowerCase(c));
-            
-            i++;
+            else{
+                idx = 0;
+            }
+            sb.append(c);
         }
         return sb.toString();
     }
