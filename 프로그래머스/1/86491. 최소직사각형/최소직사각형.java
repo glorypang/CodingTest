@@ -1,20 +1,20 @@
-import java.util.*;
-
 class Solution {
     public int solution(int[][] sizes) {
         int answer = 0;
-        int[][] arr = sizes;
-        int w = 0;
-        int h= 0;
-        for(int i = 0 ; i< arr.length; i++){
-            if(arr[i][0] < arr[i][1]) {
-                int temp = arr[i][0];
-                arr[i][0] = arr[i][1];
-                arr[i][1] = temp;
+        
+        int maxX = Integer.MIN_VALUE;
+        int maxY = Integer.MIN_VALUE;
+        for(int[] size : sizes){
+            if(size[0] >= size[1]){
+                maxX = Math.max(maxX, size[0]);
+                maxY = Math.max(maxY, size[1]);
             }
-            w = Math.max(w, arr[i][0]);
-            h = Math.max(h, arr[i][1]);
+            else{
+                maxX = Math.max(maxX, size[1]);
+                maxY = Math.max(maxY, size[0]);
+            }
         }
-        return w*h;
+        
+        return maxX*maxY;
     }
 }
