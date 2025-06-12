@@ -1,32 +1,32 @@
-import java.util.Arrays;
-
+import java.util.*;
 class Solution {
-    public int solution(int n){
+    public int solution(int n) {
+        boolean[] isPrime = getPrime(n);
         int answer = 0;
-        boolean[] arr1 = isPrime(n);
-        for(int i=1; i<=n; i++){
-            if(arr1[i] == true){
-                answer += 1;
+
+        for(int i = 2 ; i<=n ;i++){
+            if(isPrime[i]){
+                answer++;
             }
         }
+        
         return answer;
     }
-    public static boolean[] isPrime(int n){
-        boolean[] arr = new boolean[n+1];
+    
+   	public boolean[] getPrime(int n){
+        boolean[] isPrime = new boolean[n+1];
+        Arrays.fill(isPrime, true);
         
-        Arrays.fill(arr,true);
-        arr[0]=false;
-        arr[1]=false;
+        isPrime[0] = false;
+        isPrime[1] = false;
         
-        for(int i =2; i<=Math.sqrt(n); i++){
-            if(arr[i] == true){
-                for(int j=i*i;j<=n;j+=i){
-                    arr[j] = false;
-                }
-            }
+        for(int i = 2; i <= Math.sqrt(n); i++){
+          if(isPrime[i]){
+              for(int j = i*i; j <=n ;j +=i){
+                  isPrime[j] = false;
+              }
+          }  
         }
-        return arr;
-        
-        
-     }
+        return isPrime;
+    }
 }
