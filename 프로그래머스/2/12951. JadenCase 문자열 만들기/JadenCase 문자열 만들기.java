@@ -1,24 +1,29 @@
 class Solution {
     public String solution(String s) {
-        int idx = 0;
+        String answer = "";
+        s =s.toLowerCase();
         StringBuilder sb = new StringBuilder();
-        for(int i = 0 ; i < s.length(); i++){
-            char c = s.charAt(i);
-            if(c == ' ') idx = -1;
-            
-            if(Character.isDigit(c)) {
+        
+        int idx = 0;
+        for(char c : s.toCharArray()){
+            if(idx == 0 && Character.isLetter(c)){
+                sb.append(Character.toUpperCase(c));
+            }
+            else if(c == ' '){
+                idx = 0;
                 sb.append(c);
-                idx++;
-                continue;
+
+            }
+            else{
+                sb.append(c);
             }
             
-            if(idx == 0) 
-                sb.append(Character.toUpperCase(c));
-            else
-                sb.append(Character.toLowerCase(c));
-            
-            idx++;
+            if(c != ' '){
+                idx++;
+            }
         }
+        
+        
         return sb.toString();
     }
 }
