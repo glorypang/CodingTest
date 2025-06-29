@@ -1,17 +1,13 @@
 class Solution {
     public int[] solution(int brown, int yellow) {
-        int[] answer = new int[2];
-        int w = 0;
-        int h = 0;
-        for(int i = 1 ; i <= yellow; i++){
-            if(yellow%i ==0){
-                h = i;
-                w = yellow/i;
-                
-                int total = 4 + h*2 + w*2;
-                if(total == brown){
-                    answer[0]= h+2;
-                    answer[1]= w+2; 
+        int[] answer = {};
+        for(int i =1 ; i <= yellow; i++){
+            if(yellow % i == 0){
+                int rowY = i;
+                int colY = yellow/i;
+                int cnt = rowY*2 + colY*2 +4;
+                if(cnt == brown){
+                    return new int[]{colY+2, rowY+2};
                 }
             }
         }
