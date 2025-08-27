@@ -1,11 +1,9 @@
 class Solution {
     public String solution(String[] str_list, String ex) {
-        StringBuilder sb = new StringBuilder();
+        String answer = "";
         for(String str : str_list){
-            if(!str.contains(ex)){
-                sb.append(str);
-            }
+            if(!str.contains(ex)) answer += str;
         }
-        return sb.toString();
+        return answer;
     }
 }
