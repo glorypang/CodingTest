@@ -3,7 +3,7 @@ class Solution {
         int answer = 0;
         String[] str = my_string.split("[a-zA-Z]");
         for(String s : str){
-            if(s.length() >=1)
+            if(!s.equals(""))
                 answer += Integer.parseInt(s);
         }
         return answer;
