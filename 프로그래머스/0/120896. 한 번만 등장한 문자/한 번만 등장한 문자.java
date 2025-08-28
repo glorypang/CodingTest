@@ -1,24 +1,16 @@
-import java.util.*;
 class Solution {
     public String solution(String s) {
+        int[] alpha = new int[26];
         String answer = "";
-        StringBuilder sb = new StringBuilder();
-        List<Stack<Integer>> list = new ArrayList<>();
-        for(int i =0  ; i < 26; i++){
-            list.add(new Stack<>());
-        }
         for(char c : s.toCharArray()){
-            int num = c - 'a';
-            list.get(num).push(1);
-        }
-        for(int i = 0 ; i < 26 ; i++){
-            int size = list.get(i).size();
-            if(size == 1){
-                sb.append((char)(i+'a'));
-            }
+            int n = c - 'a';
+            alpha[n]++;
         }
         
-        
-        return sb.toString();
+        for(int i = 0 ; i < 26; i++){
+            if(alpha[i] == 1)
+                answer += (char)(i + 97) + "";
+        }
+        return answer;
     }
 }
