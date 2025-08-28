@@ -1,22 +1,18 @@
 import java.util.*;
-
 class Solution {
     public String[] solution(String[] strArr) {
         String[] answer = {};
-        List<String> arr = new ArrayList<String>();
+        
+        List<String> list = new ArrayList<>();
         for(String str : strArr){
-            if(str.indexOf("ad") >= 0){
-                continue;
-            }
-            else {
-                arr.add(str);
+            if(!str.contains("ad")){
+                list.add(str);
             }
         }
-        int len = arr.size();
+        int len = list.size();
         answer = new String[len];
-        
-        for(int i = 0 ; i< len ; i++){
-            answer[i] = arr.get(i);
+        for(int i = 0 ; i < len ; i++){
+            answer[i] = list.get(i);
         }
         return answer;
     }
