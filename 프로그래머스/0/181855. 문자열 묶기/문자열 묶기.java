@@ -1,16 +1,14 @@
-import java.util.*;
 class Solution {
     public int solution(String[] strArr) {
         int answer = 0;
-        Map<Integer, Integer> map = new HashMap<>();
-        for(int i = 0 ; i < strArr.length; i++){
-            map.put(strArr[i].length(), map.getOrDefault(strArr[i].length(),0)+1);
+        int[] len = new int[31];
+        for(String s : strArr){
+            len[s.length()]++;
         }
         
-        int max = Integer.MIN_VALUE;
-        for (int value : map.values()) {
-            max = Math.max(max, value);
+        for(int i = 1 ; i<= 30 ;i++){
+            answer = Math.max(answer, len[i]);
         }
-        return max;
+        return answer;
     }
 }
