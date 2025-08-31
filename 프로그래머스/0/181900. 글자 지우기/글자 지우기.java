@@ -1,12 +1,13 @@
 import java.util.*;
 class Solution {
     public String solution(String my_string, int[] indices) {
-        StringBuilder sb = new StringBuilder();
+        String answer = "";
         Arrays.sort(indices);
-        sb.append(my_string);
-        for(int i = indices.length-1 ; i >=0; i--){
-            sb.delete(indices[i], indices[i]+1);
+        char[] ch = my_string.toCharArray();
+        for(int i = 0 ; i < ch.length; i++){
+            if(Arrays.binarySearch(indices,i) < 0)
+                answer += ch[i] + "";
         }
-        return sb.toString();
+        return answer;
     }
 }
