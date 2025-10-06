@@ -4,23 +4,21 @@ class Solution {
         boolean answer = true;
 
         Stack<Character> st = new Stack<>();
-        for(Character c : s.toCharArray()){
-            if(st.isEmpty()){
-                st.push(c);
+        
+        for(char ch : s.toCharArray()){
+            if(st.empty()){
+                st.push(ch);
             }
-            else{
-                if(st.peek() == '(' && c == ')'){
-                    st.pop();
-                }
-                else{
-                    st.push(c);
-                }
+            else {
+                if(st.peek() == '(' && ch == ')') st.pop();
+                else st.push(ch);
             }
         }
-        if(st.isEmpty()){
+        
+        if(st.size() == 0){
             return true;
         }
-        else return false;
-        
+
+        return false;
     }
 }
