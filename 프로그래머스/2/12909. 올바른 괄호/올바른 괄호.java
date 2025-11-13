@@ -1,24 +1,23 @@
 import java.util.*;
+
 class Solution {
     boolean solution(String s) {
         boolean answer = true;
-
         Stack<Character> st = new Stack<>();
+        char[] list = s.toCharArray();
         
-        for(char ch : s.toCharArray()){
-            if(st.empty()){
-                st.push(ch);
+        for(char c : list){
+            if(st.isEmpty()){
+                st.push(c);
             }
-            else {
-                if(st.peek() == '(' && ch == ')') st.pop();
-                else st.push(ch);
+            else{
+                if(st.peek() == '(' && c == ')') st.pop();
+                else st.push(c);
             }
         }
         
-        if(st.size() == 0){
-            return true;
-        }
-
-        return false;
+        if(st.isEmpty()) return answer;
+        else return false;
+        
     }
 }
