@@ -1,6 +1,6 @@
 # [level 2] 가격이 제일 비싼 식품의 정보 출력하기 - 131115 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/131115#qna) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/131115) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@ Empty
 
 ### 제출 일자
 
-2025년 03월 31일 23:36:32
+2025년 12월 05일 09:21:58
 
 ### 문제 설명
 
