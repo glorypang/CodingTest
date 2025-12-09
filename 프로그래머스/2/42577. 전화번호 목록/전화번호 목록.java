@@ -1,25 +1,15 @@
 import java.util.*;
+
 class Solution {
     public boolean solution(String[] phone_book) {
-        Set<String> set = new HashSet<>();
-        
-        for(String str : phone_book){
-            set.add(str);
-        }
-        
-        for(int i = 0 ; i < phone_book.length; i++){
-            String number = phone_book[i];
-            String prefix = "";
+        boolean answer = true;
+        Arrays.sort(phone_book);
             
-            for(int j = 0 ; j <  number.length()-1; j++){
-                prefix += number.charAt(j);
-                
-                if(set.contains(prefix)){
-                    return false;
-                }
-            }
+        for(int i = 0 ; i < phone_book.length-1; i++){
+            String str = phone_book[i];
+            if(phone_book[i+1].startsWith(str)) return false;
+            
         }
-        
-        return true;
+        return answer;
     }
 }
