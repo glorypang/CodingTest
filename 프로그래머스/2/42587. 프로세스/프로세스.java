@@ -1,38 +1,43 @@
 import java.util.*;
-
 class Solution {
     public int solution(int[] priorities, int location) {
-        Queue<int[]> queue = new LinkedList<>();
+        int answer = 0;
+        Deque<Integer> dq = new LinkedList<>();
+        // 1 2 3 4
         
-        // 큐에 [인덱스, 우선순위] 형태로 넣기
-        for (int i = 0; i < priorities.length; i++) {
-            queue.offer(new int[]{i, priorities[i]});
+        for(int i = 0 ; i < priorities.length; i++){
+            dq.offerLast(i);
         }
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int i = 0 ; i < priorities.length; i++){
+            map.put(i, priorities[i]);
+        }
+   
+        
+        Arrays.sort(priorities);
+        int[] ans = new int[priorities.length]; // 위치별로 언제 실행됐는지 기록
+        for(int i = 0 ; i < priorities.length; i++){
+            while(true){
+                int n = dq.pollFirst();
+                // System.out.print("n = " + n + " ");
+                if(map.get(n) != priorities[priorities.length - i - 1]){
+                    dq.offerLast(n);
+                    // for(int a : dq){
+                    //     System.out.print(a + " ");
+                    // }
+                    // System.out.println();
+                }
+                else{
+                    ans[n] = i+1;
+                    // System.out.println();
 
-        int order = 0; // 몇 번째로 출력됐는지 세는 변수
-
-        while (!queue.isEmpty()) {
-            int[] current = queue.poll(); // 맨 앞 꺼냄
-            boolean hasHigher = false;
-
-            // 큐에 더 높은 우선순위가 있는지 확인
-            for (int[] q : queue) {
-                if (q[1] > current[1]) {
-                    hasHigher = true;
                     break;
                 }
             }
-
-            if (hasHigher) {
-                queue.offer(current); // 중요도 높은 게 있으면 다시 뒤로
-            } else {
-                order++; // 출력됨!
-                if (current[0] == location) { // 내가 찾는 위치
-                    return order;
-                }
-            }
         }
-
-        return 0; 
+        // for(int a : ans){
+        //     System.out.println(a);
+        // }
+        return ans[location];
     }
 }
