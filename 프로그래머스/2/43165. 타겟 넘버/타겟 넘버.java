@@ -1,12 +1,21 @@
 class Solution {
+    int cnt = 0;
+    int[] number;
     public int solution(int[] numbers, int target) {
-        int answer = dfs(numbers, target, 0, 0);       
-        return answer;
+        int answer = 0;
+        number = numbers;
+        dfs(0, 0, target);
+        return cnt;
     }
-    
-    public int dfs (int[] numbers, int target, int index, int sum){
-        if(numbers.length == index)
-            return sum == target? 1: 0;
-        return dfs(numbers, target, index+1, sum+numbers[index]) + dfs(numbers, target, index+1, sum-numbers[index]);
+    void dfs(int idx, int sum, int target){
+        if(target == sum && idx == number.length) {
+            cnt++;
+            return; 
+        }
+        if(idx > number.length-1) return;
+        
+        dfs(idx+1, sum + number[idx], target);
+        dfs(idx+1, sum - number[idx], target);
+        
     }
 }
