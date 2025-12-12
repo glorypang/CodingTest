@@ -2,7 +2,6 @@ class Solution {
     int cnt = 0;
     int[] number;
     public int solution(int[] numbers, int target) {
-        int answer = 0;
         number = numbers;
         dfs(0, 0, target);
         return cnt;
@@ -10,7 +9,6 @@ class Solution {
     void dfs(int idx, int sum, int target){
         if(target == sum && idx == number.length) {
             cnt++;
-            return; 
         }
         if(idx > number.length-1) return;
         
