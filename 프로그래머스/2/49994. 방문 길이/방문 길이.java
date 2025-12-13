@@ -1,38 +1,65 @@
-import java.util.*;
-
 class Solution {
-    static boolean[][][] visited; 
-    static int size = 10;
-
     public int solution(String dirs) {
         int answer = 0;
-        visited = new boolean[size + 1][size + 1][4]; // 0:상, 1:하, 2:좌, 3:우
-
-        int cx = 5, cy = 5;
-
-        for (char move : dirs.toCharArray()) {
-            int nx = cx, ny = cy;
-            int dir = -1, revDir = -1;
-
-            switch (move) {
-                case 'L': nx = cx - 1; dir = 2; revDir = 3; break;
-                case 'R': nx = cx + 1; dir = 3; revDir = 2; break;
-                case 'U': ny = cy + 1; dir = 0; revDir = 1; break;
-                case 'D': ny = cy - 1; dir = 1; revDir = 0; break;
+        boolean[][][] map = new boolean[11][11][4];
+        
+        int x = 5;
+        int y = 5;
+        
+        // 상:0 하:1 좌:2 우:3
+        int i = 1;
+        for(char c  : dirs.toCharArray()){
+            int n = c == 'U' ? 0 : c == 'D' ? 1 : c == 'L'? 2 : 3; 
+            //System.out.println(i++ + " :  (" +  x + ", " + y + " )  " + c + ": " + answer) ;
+            if(c == 'U'){
+                if(y == 10) continue;
+                if(x < 0 || y< 0 ) continue;
+                if(map[x][y][0]) answer--;
+                map[x][y][0] = true;
+                map[x][y+1][1] = true;
+                if(y+1 < 11)
+                    y++;
+                
+                
             }
+            else if(c == 'D'){
+                if(y == 0) continue;
 
-            if (nx < 0 || nx > 10 || ny < 0 || ny > 10) continue;
+                if(x < 0 || y< 0) continue;
+                if(map[x][y][1]) answer--;
+                map[x][y][1] = true;
+                map[x][y-1][0] = true;
 
-            if (!visited[cx][cy][dir]) {
-                visited[cx][cy][dir] = true;
-                visited[nx][ny][revDir] = true;
-                answer++;
+               if(y-1 >= 0)
+                    y--;
             }
+             else if(c == 'L'){
+                if(x == 0) continue;
+                if(x < 0 || y< 0) continue;
+                if(map[x][y][2]) answer--;
+                map[x][y][2] = true;
+                map[x-1][y][3] = true;
 
-            cx = nx;
-            cy = ny;
+                if(x-1 >= 0)
+                    x--;
+
+                 
+            } else if(c == 'R'){
+                if(x ==10) continue;
+                if(x < 0 || y< 0) continue;
+                if(map[x][y][3]) answer--;
+                map[x][y][3] = true;
+                map[x+1][y][2] = true;
+
+                if(x+1 < 11)
+                    x++;
+
+            }
+            if( x>=0 && y>=0)
+            answer++;
+                
         }
-
+        
         return answer;
     }
 }
