@@ -2,37 +2,60 @@ import java.util.*;
 
 class Solution {
     public int solution(String str1, String str2) {
-        double answer = 0;
-        ArrayList<String> arr1 = new ArrayList<>();
-        ArrayList<String> arr2 = new ArrayList<>();
+        int answer = 0;
+        HashMap<String, Integer> map1 = new HashMap<>();
+        HashMap<String, Integer> map2 = new HashMap<>();
+        HashMap<String, Integer> map3 = new HashMap<>();
+        HashSet<String> set = new HashSet<>();
+        str1 = str1.toLowerCase();
+        str2 = str2.toLowerCase();
         
-        // str1를 2글자씩 잘라서 넣기
-        for(int i = 0 ; i < str1.length()-1;i++){
+        int gyo = 0;
+        int hap =0;
+        for(int i = 0 ; i < str1.length()-1; i++){
             String str = str1.substring(i, i+2);
-
-            if(str.matches("[a-zA-Z]{2}"))
-                arr1.add(str.toLowerCase());
+            if(!Character.isLetter(str.charAt(0)) || !Character.isLetter(str.charAt(1))) continue;
+            map1.put(str, map1.getOrDefault(str, 0)+1);
+            map3.put(str, map3.getOrDefault(str, 0)+1);
+            set.add(str);
+            
         }
         
-        // str2를 2글자씩 잘라서 넣기
-        for(int i = 0 ; i < str2.length()-1;i++){
-            String str = str2.substring(i, i+2);
-            if(str.matches("[a-zA-Z]{2}"))
-                arr2.add(str.toLowerCase());
-        }
 
-        ArrayList<String> temp = new ArrayList<>(arr2);
-        double inter = 0; // 교집합의 수
-        for(String str : arr1){
-            if(temp.contains(str)){
-                inter++;
-                temp.remove(str);
+        for(int i = 0 ; i < str2.length()-1; i++){
+            String str = str2.substring(i, i+2);
+            if(!Character.isLetter(str.charAt(0)) || !Character.isLetter(str.charAt(1))) continue;
+            map2.put(str, map2.getOrDefault(str, 0)+1);
+            map3.put(str, map3.getOrDefault(str, 0)+1);
+            set.add(str);
+        }
+        
+        for(String key : map2.keySet()){
+            if(map1.containsKey(key)) {
+                gyo += Math.min(map1.get(key), map2.get(key));
             }
         }
+        for(String key : set){
+            hap += Math.max(map1.getOrDefault(key, 0), map2.getOrDefault(key, 0));
+        }
         
-        double union = arr1.size() + arr2.size() - inter;
-        if (union == 0) return 65536;  // 둘 다 공집합일 경우
-
-        return (int)(inter / union * 65536);
+//         for(String key: map1.keySet()){
+//             System.out.print(key + ", " + map1.get(key) + " ");
+//         }
+//         System.out.println();
+//         for(String key: map2.keySet()){
+//             System.out.print(key + ", " + map2.get(key) + " ");
+//         }
+//         System.out.println();
+        
+//         for(String key: map3.keySet()){
+//             System.out.print(key + ", " + map3.get(key) + " ");
+//         }
+//         System.out.println();
+        if(hap == 0 && gyo == 0){
+            return 65536;
+        }
+        System.out.println(gyo + ", "+hap + " = " +(int)(((float)gyo/hap)*65536));
+        return (int)(((float)gyo/hap)*65536);
     }
 }
