@@ -7,13 +7,11 @@ class Solution {
         String str = to(n, k);
         str = str.replaceAll("0+", "0");
         String[] s = str.split("0");
+        
         for(String st : s){
-            System.out.println(st+ ", " + isPrime(Long.parseLong(st)));
             if(isPrime(Long.parseLong(st))){
                 answer++;
             }
-            // System.out.println(st);
-            
         }
 
         return answer;
@@ -27,27 +25,10 @@ class Solution {
         }
         return sb.reverse().toString();
     }
-//     boolean isPrime(long x){
-//         prime = new boolean[x+1];
-//         Arrays.fill(prime, true);
-//         prime[0] = false;
-//         prime[1] = false;
-        
-//         for(long i = 2; i <= Math.sqrt(x); i++){
-//             if(prime[i]){
-//                 for(long j = i*i ; j <= x; j +=i){
-//                     prime[j] = false;
-//                 }                
-//             }
-//         }
-
-//         return prime[x];
-        
-//     }
     boolean isPrime(long x) {
         if (x < 2) return false;
 
-        for (long i = 2; i * i <= x; i++) {
+        for (long i = 2; i <= Math.sqrt(x); i++) {
             if (x % i == 0) return false;
         }
         return true;
