@@ -1,30 +1,47 @@
 import java.util.*;
-
 class Solution {
+    class Car{
+        int weight;
+        int time; 
+        
+        Car(int weight, int time) {
+            this.weight = weight;
+            this.time = time;
+        }
+    }
     public int solution(int bridge_length, int weight, int[] truck_weights) {
-        Queue<Integer> bridge = new LinkedList<>();
-        int time = 0;
-        int totalWeight = 0;
+        int answer = 0;
+        List<Car> list = new ArrayList<>();
+        
         int idx = 0;
-
-        // 초기화: 다리를 0으로 채워서 시작
-        for (int i = 0; i < bridge_length; i++) {
-            bridge.offer(0);
-        }
-
-        while (idx < truck_weights.length) {
-            time++;
-            totalWeight -= bridge.poll(); // 맨 앞 트럭 내림
-
-            if (totalWeight + truck_weights[idx] <= weight) {
-                bridge.offer(truck_weights[idx]);
-                totalWeight += truck_weights[idx];
-                idx++;
-            } else {
-                bridge.offer(0); // 트럭 못 올라가면 빈 공간 유지
+        int total = 0;
+        while(true){
+            answer++; //
+            
+            //System.out.println(answer+ "초");
+            while(!list.isEmpty() && list.get(0).time == bridge_length){
+                total -= list.get(0).weight; //
+                list.remove(0);
             }
+            
+            if(idx < truck_weights.length && total + truck_weights[idx] <= weight){ 
+                list.add(new Car(truck_weights[idx], 0)); // 4 5
+                total += truck_weights[idx]; // 
+                idx++;
+            }
+            for(int i =0 ; i < list.size(); i++){
+                list.set(i, new Car(list.get(i).weight, list.get(i).time+1)); 
+            }
+            
+            // for(int i =0 ; i < list.size(); i++){
+            //     System.out.println(list.get(i).weight + ", " + list.get(i).time); 
+            // }
+            
+            if(list.size()== 0) break;
+           
+            
+            
         }
-
-        return time + bridge_length; // 마지막 트럭이 완전히 빠져나가는 시간 추가
+        return answer;
     }
 }
