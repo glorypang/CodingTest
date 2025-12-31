@@ -1,28 +1,37 @@
 import java.util.*;
-public class Solution {
+class Solution {
     public String solution(String number, int k) {
         String answer = "";
+        Deque<Character> dq = new ArrayDeque<>();
+        char[] chs = number.toCharArray();
         int cnt = 0;
-        Stack<Character> stac = new Stack<>();
-
-        for (char c : number.toCharArray()) {
-            while(!stac.isEmpty() && c > stac.peek() && cnt < k){
-                stac.pop();
-                cnt++;
+        for(char c : chs){
+            if(dq.isEmpty())
+                dq.offerLast(c); // 32
+            else if(k > cnt){ //7
+                while(cnt <k &&!dq.isEmpty() && dq.peekLast()-'0' < c-'0'){
+                    dq.pollLast();
+                    cnt++;
+                }
+                dq.offerLast(c);
             }
-            stac.push(c);
-        }
-        while(cnt < k){
-            stac.pop();
-            cnt++;
+            else
+                dq.offerLast(c); 
+            // System.out.print("CNT : " + cnt + "개, ");
+            // for(char n : dq){
+            //     System.out.print(n +" ");
+            // }
+            // System.out.println();
         }
         
-        StringBuilder sb = new StringBuilder();
-        for (char c : stac) {
-            sb.append(c);
+        while(k >cnt){
+            dq.pollLast();
+            cnt++;
         }
-
+        StringBuilder sb= new StringBuilder();
+        for(char n : dq){
+            sb.append(n);
+        }
         return sb.toString();
-
     }
 }
