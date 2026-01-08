@@ -1,14 +1,10 @@
-SELECT A.CATEGORY, B.mx AS MAX_PRICE, A.PRODUCT_NAME
-FROM FOOD_PRODUCT A JOIN (SELECT CATEGORY, MAX(PRICE) AS mx
-                        FROM FOOD_PRODUCT 
-                        WHERE CATEGORY IN ( '과자', '국', '김치', '식용유')
-                        GROUP BY CATEGORY) B
-ON A.CATEGORY = B.CATEGORY AND A.PRICE = B.mx
-ORDER BY MAX_PRICE DESC
+-- 코드를 입력하세요
+WITH RANKED AS(
+    SELECT CATEGORY, PRICE, PRODUCT_NAME, RANK() OVER (PARTITION BY CATEGORY ORDER BY PRICE DESC) AS 'RANK'
+    FROM FOOD_PRODUCT 
+)
 
-
-# SELECT category, MAX(PRICE) AS mx
-#                         FROM FOOD_PRODUCT 
-#                         WHERE CATEGORY IN ( '과자', '국', '김치', '식용유')
-#                         GROUP BY CATEGORY
-    
+SELECT R.CATEGORY, R.PRICE AS MAX_PRICE, R.PRODUCT_NAME 
+FROM RANKED R
+WHERE R.RANK = 1 AND R.CATEGORY IN ("과자", "국", "김치", "식용유")
+ORDER BY 2 DESC
