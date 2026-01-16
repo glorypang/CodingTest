@@ -28,8 +28,7 @@ class Solution {
             
             for(int i = x1; i < x2; i++){ 
                 copy[i][y2-1] = map[i-1][y2-1];
-                pq.offer(map[i-1][y2-1]
-                        );
+                pq.offer(map[i-1][y2-1]);
             }
             
             for(int i = y2-2; i >= y1-1; i--){ 
@@ -47,7 +46,6 @@ class Solution {
                     map[i][j] = copy[i][j];
                 }
             }
-            
             list.add(pq.poll());
         }
         int[] answer = new int[list.size()];
