@@ -9,7 +9,6 @@ class Solution {
         for(int i = 0; i < list.size()-1; i++){
             li.add((double)(list.get(i)+list.get(i+1))/2);
         }
-        
         for(int i = 0 ; i < ranges.length;i++){
             if(ranges[i][0] > li.size() - Math.abs(ranges[i][1])) {
                 ans.add(-1.0);
@@ -21,15 +20,11 @@ class Solution {
             }
             ans.add(s);
         }
-        // for(double n : li){
-        //     System.out.println(n);
-        // }
         double[] answer = new double[ans.size()];
         int idx = 0;
         for(double n : ans){
             answer[idx++] = n;
         }
-        
         return answer;
     }
    
