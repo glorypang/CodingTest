@@ -1,26 +1,39 @@
 import java.util.*;
-
 class Solution {
     public int[] solution(String[] operations) {
-        TreeMap<Integer, Integer> map = new TreeMap<>();
-
-        for(String str : operations){
-            String[] s = str.split(" ");
-            int num = Integer.parseInt(s[1]);
-            if(s[0].equals("I")){
-                map.put(num, map.getOrDefault(num, 0) + 1);
+        int[] answer = {};
+        
+        TreeMap<Integer, Integer> tm = new TreeMap<>();
+        int cnt = 0;
+        for(String s : operations){
+            String[] str = s.split(" ");
+            
+            if(str[0].equals("I")){
+                tm.put(Integer.parseInt(str[1]), tm.getOrDefault(Integer.parseInt(str[1]),0)+1);
+                cnt++;
             }
-            else if(!map.isEmpty()){
-                int key = (num == 1) ? map.lastKey() : map.firstKey(); // ✅ 수정된 부분
-                if(map.get(key) == 1){
-                    map.remove(key);
-                } else {
-                    map.put(key, map.get(key) - 1);
+            else if(tm.size() >= 1 && str[0].equals("D")){
+                cnt--;
+                if(str[1].equals("1")){
+                    tm.put(tm.lastKey(), tm.get(tm.lastKey())-1);
+                    if(tm.get(tm.lastKey()) <= 0){
+                        tm.remove(tm.lastKey());
+                    }
+                }
+                else{
+                    tm.put(tm.firstKey(), tm.get(tm.firstKey())-1);
+                    if(tm.get(tm.firstKey()) <= 0){
+                        tm.remove(tm.firstKey());
+                    }
                 }
             }
         }
-
-        if(map.isEmpty()) return new int[]{0, 0};
-        return new int[]{map.lastKey(), map.firstKey()};
+        
+        if(cnt <= 0){
+            return new int[]{0, 0};
+        }
+        else{
+            return new int[]{tm.lastKey(), tm.firstKey()};
+        }
     }
 }
