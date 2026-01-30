@@ -12,6 +12,7 @@ class Solution {
         return answer == Integer.MAX_VALUE ? 0 : answer;
     }
     void dfs(String word, String tar, int depth){
+        if(depth >= answer) return;
         if(word.equals(tar)){
             answer = Math.min(answer, depth);
             return;
@@ -25,7 +26,6 @@ class Solution {
                 }
                 if(cnt == 1){
                     visit[i] = true;
-                    //System.out.println(word + " " + wordss[i] + " " + depth);
                     dfs(wordss[i], tar, depth+1);
                     visit[i] = false;
                 }
