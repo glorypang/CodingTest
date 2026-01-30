@@ -11,17 +11,10 @@ class Solution {
             if(pq.peek() == 0) return 0;
             pq.offer(pq.peek()-1);
             pq.poll();
-            
-            // for(int p : pq){
-            //     System.out.print(p + " ");
-            // }
-            // System.out.println();
         }
-            for(int p : pq){
-                answer += Math.pow(p,2);
-            }
-        
-        
+        for(int p : pq){
+            answer += Math.pow(p,2);
+        }
         return answer;
     }
 }
