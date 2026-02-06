@@ -3,11 +3,11 @@ class Solution {
         int answer = 0;
         int len = sticker.length;
         
-        // 1번부터 시작
         if(len == 1) return sticker[0];
         else if(len == 2) return Math.max(sticker[0], sticker[1]);
         else if(len == 3) return Math.max(sticker[0] + sticker[2] , sticker[1]);
-
+        
+        // 1번부터 시작
         int[] dp1 = new int[len];
         dp1[0] = sticker[0];
         dp1[1] = sticker[1];
