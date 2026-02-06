@@ -11,8 +11,7 @@ class Solution {
         int[] dp1 = new int[len];
         dp1[0] = sticker[0];
         dp1[1] = sticker[1];
-        for(int i = 2; i < len ; i++){
-            if(i == len -1) continue;
+        for(int i = 2; i < len-1; i++){
             if(i == 2){
                dp1[i] = Math.max(dp1[0] + sticker[2] , sticker[1]);
             }
