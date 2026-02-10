@@ -4,7 +4,6 @@ class Solution {
     boolean[] visit;
     int len = 0;
     List<String> temp = new ArrayList<>();
-    int cnt =0;
     List<List<String>> list = new ArrayList<>(); 
     public String[] solution(String[][] tickets) {
         ticket = tickets;
@@ -22,13 +21,6 @@ class Solution {
             }
         }
 
-        
-        for(int i = 0 ; i < list.size(); i++){
-            for(String n : list.get(i)){
-            }
-            System.out.println();
-        }
-        
         Collections.sort(list, (o1, o2)->{
            for(int i = 0; i < o1.size(); i++){
                int cmp = o1.get(i).compareTo(o2.get(i));
@@ -36,6 +28,8 @@ class Solution {
            }
             return 0;
         });
+        
+        
         String[] answer = new String[list.get(0).size()];
         
         for(int i = 0 ; i < list.get(0).size(); i++){
@@ -48,7 +42,7 @@ class Solution {
     
     void dfs(String start){
         if(temp.size() == len+1){
-            list.add(new ArrayList<>(temp)); // 복사본 저장
+            list.add(new ArrayList<>(temp)); 
             return;
         }
         
