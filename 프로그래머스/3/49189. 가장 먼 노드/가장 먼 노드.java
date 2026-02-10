@@ -1,53 +1,44 @@
 import java.util.*;
-
 class Solution {
-    List<List<Integer>> g;
+    List<List<Integer>> list = new ArrayList<>();
     boolean[] visit;
-    int[] dist;
-    int N;
-    int maxDepth = 0;
+    int cnt = 0;
+    int total =0;
     public int solution(int n, int[][] edge) {
-        N = n;
-        g = new ArrayList<>();
-        for(int i = 0 ; i<= N; i++){
-            g.add(new ArrayList<>());
-        }
+        for(int i = 0 ; i <= n ; i++)
+            list.add(new ArrayList<>());
         visit = new boolean[n+1];
-        dist = new int[n+1];
         
         for(int[] e : edge){
-            int u = e[0];
-            int v = e[1];
-            
-            g.get(u).add(v);
-            g.get(v).add(u);
+            int u = e[0]; int v = e[1];
+            list.get(u).add(v);
+            list.get(v).add(u);
         }
+        visit[1] = true;
         bfs(1);
-        int cnt = 0;
-        for(int na : dist){
-            if(maxDepth-1 == na)
-                cnt++;
-        }
-        return cnt;
+        return total;
     }
     
-    public void bfs(int start){
-        Queue<Integer> q = new LinkedList<>();
-        q.offer(start);
-        visit[start] = true;
+    void bfs(int node){
+        Queue<int[]> q = new LinkedList<>();
+        q.offer(new int[]{node, 1});
         while(!q.isEmpty()){
             int size = q.size();
-            for(int i = 0 ; i< size; i++){
-                int cur = q.poll();
-                for(int next : g.get(cur)){
-                    if(!visit[next]){
-                        visit[next] = true;
-                        q.offer(next);
-                        dist[next] = dist[cur] +1;
+            total = 0;
+            for(int a = 0 ; a < size; a++){
+                int[] nums = q.poll();
+                int num = nums[0];
+                if(cnt == nums[1]){
+                    total++;
+                }
+                for(int i = 0; i < list.get(num).size(); i++){
+                    if(!visit[list.get(num).get(i)]){
+                        visit[list.get(num).get(i)] = true;
+                        q.offer(new int[]{list.get(num).get(i), cnt+1});
                     }
                 }
             }
-            maxDepth++;
+            cnt++;
         }
     }
 }
