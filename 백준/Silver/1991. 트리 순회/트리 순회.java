@@ -1,77 +1,77 @@
+import javax.swing.*;
 import java.io.*;
 import java.util.*;
 
-class Node {
+class Node{
     char name;
     Node left;
     Node right;
 
-    public Node(char name) {
-        this.name = name;
+    public Node(char c){
+        this.name = c;
     }
 }
-
-public class Main {
-
-    public static void main(String[] args) throws IOException {
+public class Main{
+    public static void main(String[] args) throws IOException  {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-
         Map<Character, Node> map = new HashMap<>();
 
-        for (int i = 0; i < N; i++) {
+
+        for(int i = 0; i < N; i++){
             String[] str = br.readLine().split(" ");
             char a = str[0].charAt(0);
             char b = str[1].charAt(0);
             char c = str[2].charAt(0);
 
             map.putIfAbsent(a, new Node(a));
-            Node parent = map.get(a);
+            Node newNode = map.get(a);
 
-            if (b != '.') {
+            if(b != '.'){
                 map.putIfAbsent(b, new Node(b));
-                parent.left = map.get(b);
+                newNode.left = map.get(b);
             }
-
-            if (c != '.') {
+            if(c != '.' && newNode.right == null){
                 map.putIfAbsent(c, new Node(c));
-                parent.right = map.get(c);
+                newNode.right = map.get(c);
             }
         }
-
         Node root = map.get('A');
 
-        StringBuilder pre = new StringBuilder();
-        StringBuilder in = new StringBuilder();
-        StringBuilder post = new StringBuilder();
-
+        List<Character> pre = new ArrayList<>();
+        List<Character> in = new ArrayList<>();
+        List<Character> post = new ArrayList<>();
         preOrder(root, pre);
         inOrder(root, in);
         postOrder(root, post);
 
-        System.out.println(pre);
-        System.out.println(in);
-        System.out.println(post);
+        for(char c :pre)
+            System.out.print(c);
+        System.out.println();
+        for(char c :in)
+            System.out.print(c);
+        System.out.println();
+
+        for(char c :post)
+            System.out.print(c);
     }
 
-    public static void preOrder(Node root, StringBuilder sb) {
-        if (root == null) return;
-        sb.append(root.name);
-        preOrder(root.left, sb);
-        preOrder(root.right, sb);
+    public static void preOrder(Node root, List<Character> result){
+        if(root ==null) return;
+        result.add(root.name);
+        preOrder(root.left, result);
+        preOrder(root.right, result);
     }
-
-    public static void inOrder(Node root, StringBuilder sb) {
-        if (root == null) return;
-        inOrder(root.left, sb);
-        sb.append(root.name);
-        inOrder(root.right, sb);
+    public static void inOrder(Node root, List<Character> result){
+        if(root ==null) return;
+        inOrder(root.left, result);
+        result.add(root.name);
+        inOrder(root.right, result);
     }
-
-    public static void postOrder(Node root, StringBuilder sb) {
-        if (root == null) return;
-        postOrder(root.left, sb);
-        postOrder(root.right, sb);
-        sb.append(root.name);
+    public static void postOrder(Node root, List<Character> result){
+        if(root ==null) return;
+        postOrder(root.left, result);
+        postOrder(root.right, result);
+        result.add(root.name);
     }
 }
