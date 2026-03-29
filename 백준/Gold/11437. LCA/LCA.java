@@ -30,15 +30,13 @@ public class Main {
         dfs(1, 0, 0);
 
         int M = Integer.parseInt(br.readLine());
-        StringBuilder sb = new StringBuilder();
         for(int i = 0; i < M; i++){
             StringTokenizer st = new StringTokenizer(br.readLine());
             int u = Integer.parseInt(st.nextToken());
             int v = Integer.parseInt(st.nextToken());
             int lca = LCA(u, v);
-            sb.append(lca).append('\n');
+            System.out.println(lca);
         }
-        System.out.print(sb);
     }
 
     static void dfs(int node, int par, int d){
