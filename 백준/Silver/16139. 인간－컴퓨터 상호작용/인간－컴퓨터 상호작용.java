@@ -5,9 +5,17 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String S = br.readLine();
-        char[] ss = S.toCharArray();
+        int[][] arr = new int[26][S.length()+1];
 
-        HashMap<Character, Integer> map = new HashMap<>();
+        for(int i = 1 ; i <= S.length(); i++){
+            arr[S.charAt(i-1)-'a'][i]++;
+        }
+
+        for(int i = 0 ; i < 26; i++){
+            for(int j = 1; j <= S.length() ; j++){
+                arr[i][j] += arr[i][j-1];
+            }
+        }
         StringTokenizer st;
         int N = Integer.parseInt(br.readLine());
         for(int i = 0 ; i < N; i++){
@@ -16,13 +24,7 @@ public class Main {
             char c = st.nextToken().charAt(0);
             int n1 = Integer.parseInt(st.nextToken());
             int n2 = Integer.parseInt(st.nextToken());
-
-            int cnt = 0;
-            for(int j = n1; j <= n2; j++){
-                if(ss[j] == c)
-                    cnt++;
-            }
-            System.out.println(cnt);
+            System.out.println(arr[c-'a'][n2+1]-arr[c-'a'][n1]);
         }
     }
 }
