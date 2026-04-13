@@ -5,6 +5,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String S = br.readLine();
+        char[] ss = S.toCharArray();
 
         HashMap<Character, Integer> map = new HashMap<>();
         StringTokenizer st;
@@ -18,7 +19,7 @@ public class Main {
 
             int cnt = 0;
             for(int j = n1; j <= n2; j++){
-                if(S.charAt(j) == c)
+                if(ss[j] == c)
                     cnt++;
             }
             System.out.println(cnt);
