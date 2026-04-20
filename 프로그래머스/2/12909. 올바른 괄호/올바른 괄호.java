@@ -3,21 +3,26 @@ import java.util.*;
 class Solution {
     boolean solution(String s) {
         boolean answer = true;
-        Stack<Character> st = new Stack<>();
-        char[] list = s.toCharArray();
         
-        for(char c : list){
+        Deque<Character> st = new ArrayDeque<>();
+        for(int i = 0 ; i < s.length(); i++){
+            char c = s.charAt(i);
             if(st.isEmpty()){
-                st.push(c);
+                st.offerLast(c);
             }
             else{
-                if(st.peek() == '(' && c == ')') st.pop();
-                else st.push(c);
+                if(st.peekLast() == '(' && c == ')')
+                    st.removeLast();
+                else{
+                    st.offerLast(c);
+                }
             }
         }
         
-        if(st.isEmpty()) return answer;
-        else return false;
-        
+        if(st.isEmpty())
+            return true;
+
+
+        return false;
     }
 }
