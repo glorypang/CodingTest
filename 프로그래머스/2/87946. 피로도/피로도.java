@@ -1,32 +1,42 @@
+import java.util.*;
 class Solution {
     int[][] dungeon;
-    int max = 0;
     boolean[] visit;
+    int n;
+    int count;
+    int answer = 0;
     public int solution(int k, int[][] dungeons) {
-        int answer = -1;
         dungeon = dungeons;
-        visit = new boolean[dungeon.length];
-        for(int i = 0 ; i < dungeon.length; i++){
-            visit[i] = true;
-            dfs(1,i,k);
-            visit[i] = false;
-        }
-        return max;
-    }
-    void dfs(int cnt, int cur, int remain){
-        if(remain-dungeon[cur][1] < 0 || remain < dungeon[cur][0]) return ;
-        //System.out.println(cnt + ", " + cur + ", " + remain);
-        remain -= dungeon[cur][1];
-        for(int i = 0 ; i < dungeon.length; i++){
-        max = Math.max(max, cnt);
-            
-            if(!visit[i]){
-                visit[i] = true;
-                dfs(cnt+1, i, remain); // dfs(1, 1, 60), dfs(1, 2, 60) -> dfs(2, 1, 50) -> dfs(3, 0, 10), dfs(3, 1, 10), dfs(3, , 10)
-                
-                visit[i] = false;
-            }    
+        n = dungeons.length;
+        
+        for(int i = 0 ; i< n ; i++){
+            visit = new boolean[n+1];
+            count = 1;
+            if(dungeons[i][0] <= k)
+                dfs(i, 0, k);
+            answer = Math.max(answer, count);
+            System.out.println();
         }
         
+        return answer;
+    }
+    
+    void dfs(int pos, int depth, int health){
+        count = Math.max(count, depth);
+        //System.out.println(pos +" " + depth +" " +health + " " + count);
+        
+        // if(health < dungeon[pos][0])
+            // return;
+        
+        for(int i =0 ; i < n; i++){
+            if(!visit[i] && health >= dungeon[i][0]){
+                health -= dungeon[i][1];
+                visit[i] = true;
+                
+                dfs(i, depth+1, health);
+                health += dungeon[i][1];
+                visit[i] = false;
+            }
+        }
     }
 }
